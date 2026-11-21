@@ -1,13 +1,13 @@
-FROM oven/bun:1-alpine
+# Stage 1: Build React TSX ke JavaScript statis menggunakan Bun di GitHub Actions
+FROM oven/bun:1-alpine AS build
 WORKDIR /app
-
-# Install dependencies lebih dulu agar ter-cache oleh Docker layer
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
-
-# Copy seluruh source code frontend (server.ts, index.html, src/)
 COPY . .
+RUN bun build ./src/Main.tsx --outdir ./dist --target browser --format esm
 
-ENV PORT=5000
-EXPOSE 5000
-CMD ["bun", "run", "server.ts"]
+# Stage 2: Serve langsung pakai Nginx Alpine (0 ketergantungan CPU SSE4.2)
+FROM nginx:alpine
+COPY --from=build /app/index.html /usr/share/nginx/html/index.html
+COPY --from=build /app/dist/Main.js /usr/share/nginx/html/Main.js
+EXPOSE 80
