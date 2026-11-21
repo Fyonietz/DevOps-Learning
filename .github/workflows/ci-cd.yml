@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/devops-learning
+  IMAGE_PREFIX: ghcr.io/fyonietz/devops-learning
 
 jobs:
   # TAHAP CI: Build Docker Images di Cloud & Push ke GitHub Container Registry
