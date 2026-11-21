@@ -49,10 +49,16 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    if: ${{ secrets.SERVER_HOST != '' }}
+    env:
+      HAS_SERVER: ${{ secrets.SERVER_HOST != '' }}
 
     steps:
+      - name: Skip deploy if VPS secrets are not configured
+        if: env.HAS_SERVER != 'true'
+        run: echo "VPS secrets belum diisi, melewati tahap CD."
+
       - name: Deploy to VPS via SSH
+        if: env.HAS_SERVER == 'true'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
