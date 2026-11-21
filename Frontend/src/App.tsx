@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <main>
-      <h1>This is for DevOps CI/CD integration</h1>
+      <h1 style="color:red;">This is for DevOps CI/CD integration</h1>
 
       <h1>
         Backend Status: {loading ? "Checking..." : status}
