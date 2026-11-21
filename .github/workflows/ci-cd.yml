@@ -64,8 +64,10 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
             cd /opt/devops-learning
             docker compose pull
             docker compose up -d
+            docker compose restart nginx
             docker image prune -f
