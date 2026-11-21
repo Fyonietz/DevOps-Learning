@@ -1,0 +1,30 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
+
+# .NET Build & Cache
+**/[Bb]in/
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Rr]elease/
+*.user
+*.suo
+*.cache
+.vs/
+TestResults/
+*.nupkg
+
+# Frontend (Bun / Node)
+**/node_modules/
+**/dist/
+.bun/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+*~
+*.swp
